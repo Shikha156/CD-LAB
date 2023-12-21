@@ -1,0 +1,16 @@
+% option noyywrap
+%{
+#include <stdio.h>
+%}
+%%
+[] ([])*    { fprintf(yyout,"");}  // Replace white spaces with a single blank
+([]) (\n) ([])        { fprintf(yyout,"");}  // Preserve newline characters
+%%
+
+int main()
+{
+    yyin = fopen("notes.txt",'r');
+    yyout = fopen("notes.txt","w");
+    yylex();
+    return 0;
+}
